@@ -1,23 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Transaction from "./Transaction";
 
-function TransactionsList() 
+function TransactionsList({transactions, setOnDelete}) 
 {
-  const [transactions, setTransactions] = useState([])
 
-  useEffect(()=>{
-
-    fetch('http://localhost:8001/transactions')
-      .then((response) => response.json())
-      .then((data) => {
-
-       setTransactions(data)
-
-      } );
-
-  }, [])
   
-  console.log(transactions);
+
+
+ 
+  
   return (
     <table className="ui celled striped padded table">
       <tbody>
@@ -34,24 +25,14 @@ function TransactionsList()
           <th>
             <h3 className="ui center aligned header">Amount</h3>
           </th>
+          <th>
+            <h3 className="ui center aligned header"></h3>
+          </th>
         </tr>
         {/* render a list of <Transaction> components here */}
         {
           transactions && transactions.map((trans)=>(
-         <tr key={trans.id}>
-          <td>
-            <p >{trans.date}</p>
-          </td>
-          <td>
-            <p >{trans.description}n</p>
-          </td>
-          <td>
-            <p >{trans.category}</p>
-          </td>
-          <td>
-            <p >{trans.amount}</p>
-          </td>
-        </tr>
+           <Transaction key={trans && trans.id}  setOnDelete={ setOnDelete} trans={trans} />
 
           ))
         }
